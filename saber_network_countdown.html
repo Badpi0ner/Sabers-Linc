@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>Операция «Кластерная Буря»</title>
+  <style>
+    :root { color-scheme: dark; --red:#ff3038; --muted:#aaa; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 52px 20px 28px;
+      background: radial-gradient(ellipse at 50% 0%, #321014 0, #111 42%, #070707 100%);
+      color: #f3f3f3; font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    main { width: min(900px, 100%); margin: 0 auto; }
+    .eyebrow { color: #ff7378; letter-spacing: .22em; text-transform: uppercase; font-size: 12px; text-align:center; }
+    h1 { text-align:center; font-size: clamp(25px, 5vw, 43px); line-height:1.2; margin: 17px 0 30px; font-weight: 750; }
+    .timer-frame {
+      border: 2px solid var(--red); border-radius: 12px; padding: 25px 18px 22px;
+      background: linear-gradient(145deg, rgba(55,10,14,.65), rgba(10,10,10,.92));
+      box-shadow: 0 0 28px rgba(255,48,56,.17), inset 0 0 24px rgba(255,48,56,.05);
+      text-align:center;
+    }
+    .timer { color: var(--red); font: 800 clamp(38px, 10vw, 82px)/1.1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.025em; text-shadow: 0 0 18px rgba(255,48,56,.3); font-variant-numeric:tabular-nums; }
+    .units { display:flex; justify-content:center; gap:clamp(24px, 7vw, 62px); margin-top:12px; color:#c7a4a5; font-size:11px; letter-spacing:.18em; text-transform:uppercase; }
+    article { margin: 46px auto 0; max-width: 820px; }
+    h2 { color:#ff555d; font-size: clamp(23px, 4vw, 31px); margin:0 0 22px; }
+    h3 { color:#fff; font-size:20px; margin:28px 0 12px; }
+    p { color:#d0d0d0; font-size:16px; line-height:1.8; margin:0 0 16px; }
+    .quote { border-left:3px solid var(--red); padding-left:20px; }
+    .quote p { margin-bottom:17px; }
+    .quote strong { color:#fff; }
+    .emphasis { color:#fff; font-weight:700; }
+    footer { margin:50px auto 0; padding:20px 16px 0; max-width:820px; border-top:1px solid #382326; color:#888; text-align:center; font-size:13px; line-height:1.7; }
+    @media (max-width:480px) { body { padding:34px 15px 22px; } .timer-frame { padding:22px 8px 18px; } .units { gap:20px; font-size:9px; } p { font-size:15px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Объявление · СейберСеть</div>
+    <h1>До начала Операции «Кластерная Буря» осталось:</h1>
+    <section class="timer-frame" aria-label="Обратный отсчёт">
+      <div class="timer" id="timer">48:31:59</div>
+      <div class="units"><span>Часы</span><span>Минуты</span><span>Секунды</span></div>
+    </section>
+
+    <article>
+      <h2>Что такое СейберСеть?</h2>
+      <p><strong>Дословный пересказ выступления от 1 января **** года. Уважаемого Леонардо Сейбера.</strong></p>
+      <div class="quote">
+        <p>«Уважаемые дамы и господа!</p>
+        <p>На протяжении десятилетий человечество стремилось сделать свою жизнь проще. Мы создавали машины, автоматизировали производство, внедряли компьютеры и разрабатывали технологии, которые ещё недавно казались научной фантастикой.</p>
+        <p>Но сегодня я хочу представить вам нечто совершенно новое»</p>
+
+        <h3>СейберСеть!</h3>
+        <p><strong>Что это такое?</strong></p>
+        <p>СейберСеть — это глобальная интеллектуальная система, способная объединить бытовую технику, электронные устройства и различные элементы современной инфраструктуры в единую цифровую экосистему.</p>
+        <p>Представьте себе мир, в котором каждый холодильник, каждая стиральная машина, каждый телевизор и даже обычная микроволновая печь способны взаимодействовать друг с другом.</p>
+        <p>Именно для этого мы разработали специальные интеллектуальные чипы.</p>
+        <p>Каждый такой чип представляет собой небольшой вычислительный модуль, оснащённый программным обеспечением и средствами связи. Он позволяет устройству собирать информацию о собственной работе, обмениваться данными и выполнять команды.</p>
+        <p>Но зачем всё это нужно?</p>
+        <p>Представьте холодильник, который самостоятельно контролирует температуру, следит за сроком хранения продуктов и сообщает владельцу, когда запасы заканчиваются.</p>
+        <p>Представьте стиральную машину, которая самостоятельно определяет оптимальный режим стирки.</p>
+        <p>Представьте систему отопления, которая регулирует температуру в доме в зависимости от условий окружающей среды.</p>
+        <p>Всё это становится возможным благодаря СейберСети!</p>
+        <p>Однако самое главное заключается вовсе не в отдельных устройствах.</p>
+        <p class="emphasis">Самое главное — это их взаимодействие.</p>
+        <p>Благодаря единой сети устройства могут обмениваться информацией, координировать свою работу и выполнять сложные задачи без постоянного вмешательства человека.</p>
+        <p>Больше никакого управления десятками отдельных приборов. Больше никаких разрозненных систем.</p>
+        <p class="emphasis">Одна сеть. Единая платформа. Миллионы подключённых устройств.</p>
+        <p>И это только начало.</p>
+        <p>Наша технология открывает совершенно новые перспективы для промышленности, медицины, транспорта, энергетики и повседневной жизни.</p>
+        <p>Мы создаём будущее, в котором технологии не просто выполняют наши команды, а помогают предугадывать потребности человека.</p>
+        <p>Разумеется, подобная система требует серьёзного подхода к безопасности. Поэтому СейберСеть предусматривает защиту данных, разграничение доступа и возможность отключения отдельных устройств от общей системы.</p>
+        <p>Ведь настоящая технологическая революция должна не только расширять возможности человечества, но и делать его жизнь безопаснее.</p>
+        <p>Дамы и господа!</p>
+        <p>Сегодня мы стоим на пороге новой эпохи.</p>
+        <p>Эпохи, в которой миллионы устройств смогут работать как единый механизм.</p>
+        <p class="emphasis">Это не просто очередное изобретение. Это новый способ взаимодействия человека и технологий.</p>
+        <p class="emphasis">Это СейберСеть.</p>
+        <p class="emphasis">И будущее начинается сегодня!»</p>
+      </div>
+    </article>
+
+    <footer>
+      Сайт является развлекательным, не несёт никакого смысла, не является коммерческим проектом и создан в шутку и ради юмора. Обратный отсчёт ни к чему не ведёт.
+    </footer>
+  </main>
+  <script>
+    // Единая фиксированная дата окончания: отсчёт не начинается заново при открытии страницы.
+    // Для всех посетителей используется один и тот же момент времени.
+    const deadline = new Date("2026-11-26T07:14:59+04:00").getTime();
+    const timer = document.getElementById("timer");
+    const pad = n => String(n).padStart(2, "0");
+
+    function updateTimer() {
+      const remaining = Math.max(0, deadline - Date.now());
+      const totalSeconds = Math.floor(remaining / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      timer.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      if (remaining <= 0) {
+        timer.textContent = "00:00:00";
+        clearInterval(interval);
+      }
+    }
+    updateTimer();
+    const interval = setInterval(updateTimer, 250);
+  </script>
+</body>
+</html>
