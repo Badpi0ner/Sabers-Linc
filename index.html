@@ -3,111 +3,432 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090909">
-  <title>Операция «Кластерная Буря»</title>
+  <meta name="theme-color" content="#08090b">
+  <meta name="description" content="Saber Network — архив операции «Кластерная Буря».">
+  <title>Saber Network — Операция «Кластерная Буря»</title>
   <style>
-    :root { color-scheme: dark; --red:#ff3038; --muted:#aaa; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh; padding: 52px 20px 28px;
-      background: radial-gradient(ellipse at 50% 0%, #321014 0, #111 42%, #070707 100%);
-      color: #f3f3f3; font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+    :root {
+      color-scheme: dark;
+      --bg:#08090b; --panel:#101216; --panel2:#15181e; --line:#2a3039;
+      --red:#ff3944; --red2:#a91621; --text:#edf0f4; --muted:#9ba3af;
+      --green:#8be0b0; --amber:#e7bd70; --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+      --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
     }
-    main { width: min(900px, 100%); margin: 0 auto; }
-    .eyebrow { color: #ff7378; letter-spacing: .22em; text-transform: uppercase; font-size: 12px; text-align:center; }
-    h1 { text-align:center; font-size: clamp(25px, 5vw, 43px); line-height:1.2; margin: 17px 0 30px; font-weight: 750; }
-    .timer-frame {
-      border: 2px solid var(--red); border-radius: 12px; padding: 25px 18px 22px;
-      background: linear-gradient(145deg, rgba(55,10,14,.65), rgba(10,10,10,.92));
-      box-shadow: 0 0 28px rgba(255,48,56,.17), inset 0 0 24px rgba(255,48,56,.05);
-      text-align:center;
-    }
-    .timer { color: var(--red); font: 800 clamp(38px, 10vw, 82px)/1.1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.025em; text-shadow: 0 0 18px rgba(255,48,56,.3); font-variant-numeric:tabular-nums; }
-    .units { display:flex; justify-content:center; gap:clamp(24px, 7vw, 62px); margin-top:12px; color:#c7a4a5; font-size:11px; letter-spacing:.18em; text-transform:uppercase; }
-    article { margin: 46px auto 0; max-width: 820px; }
-    h2 { color:#ff555d; font-size: clamp(23px, 4vw, 31px); margin:0 0 22px; }
-    h3 { color:#fff; font-size:20px; margin:28px 0 12px; }
-    p { color:#d0d0d0; font-size:16px; line-height:1.8; margin:0 0 16px; }
-    .quote { border-left:3px solid var(--red); padding-left:20px; }
-    .quote p { margin-bottom:17px; }
-    .quote strong { color:#fff; }
-    .emphasis { color:#fff; font-weight:700; }
-    footer { margin:50px auto 0; padding:20px 16px 0; max-width:820px; border-top:1px solid #382326; color:#888; text-align:center; font-size:13px; line-height:1.7; }
-    @media (max-width:480px) { body { padding:34px 15px 22px; } .timer-frame { padding:22px 8px 18px; } .units { gap:20px; font-size:9px; } p { font-size:15px; } }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(ellipse at 50% -15%,#261014 0,#101115 38%,var(--bg) 78%);color:var(--text);font-family:var(--sans);min-height:100vh}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    a{color:#ff7b82}
+    .shell{max-width:1100px;margin:auto;padding:24px 20px 56px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding:8px 0 18px;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px;letter-spacing:.12em;font-size:12px;font-weight:800}
+    .brand-mark{width:34px;height:34px;border:1px solid var(--red);display:grid;place-items:center;color:var(--red);font-family:var(--mono);font-weight:900;box-shadow:0 0 18px #ff394426}
+    .top-meta{color:var(--muted);font:11px var(--mono);text-align:right}
+    .eyebrow{color:#ff858b;font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(27px,5vw,48px);line-height:1.12;letter-spacing:-.035em;margin:14px 0 18px}
+    h2{font-size:clamp(22px,3vw,30px);margin-bottom:14px}
+    h3{font-size:17px;margin-bottom:10px}
+    p{line-height:1.75;color:#cbd0d8}
+    .muted{color:var(--muted)}
+    .hero{text-align:center;padding:30px 0 22px}
+    .hero p{max-width:720px;margin:0 auto 24px}
+    .timer-card{max-width:760px;margin:26px auto 0;border:1px solid #733039;border-radius:12px;background:linear-gradient(145deg,#241014d9,#0e1014f2);padding:26px 18px;box-shadow:0 0 42px #ff303812,inset 0 0 30px #ff303808}
+    .timer{font:800 clamp(38px,10vw,82px)/1.1 var(--mono);color:var(--red);letter-spacing:.035em;text-shadow:0 0 24px #ff30384d;font-variant-numeric:tabular-nums}
+    .units{display:flex;justify-content:center;gap:clamp(20px,7vw,62px);margin-top:12px;color:#c49da0;font:10px var(--mono);letter-spacing:.15em;text-transform:uppercase}
+    .status-line{margin-top:18px;font:11px var(--mono);color:var(--muted)}
+    .panel{border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#13161b,#0d0f12);padding:22px;margin:20px 0}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:18px}
+    .tag{border:1px solid #5a3035;border-radius:4px;padding:5px 8px;color:#ff858b;font:10px var(--mono);letter-spacing:.1em}
+    .tag.green{border-color:#315c45;color:var(--green)}
+    .tag.amber{border-color:#65512e;color:var(--amber)}
+    .button{border:1px solid #7c3039;border-radius:6px;padding:11px 15px;background:#291116;color:#fff;font-weight:700;transition:.2s}
+    .button:hover{background:#40151d;border-color:var(--red);box-shadow:0 0 20px #ff394426}
+    .button.secondary{background:#171a20;border-color:#3a414c;color:#dce1e8}
+    .button:disabled{opacity:.4;cursor:not-allowed}
+    .button-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .hidden{display:none!important}
+    #launchSequence{max-width:820px;margin:30px auto;border:1px solid #61252d;border-radius:12px;background:#050607;padding:24px;min-height:250px;box-shadow:0 0 45px #ff303814}
+    .terminal-top{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #32191d;padding-bottom:12px;margin-bottom:18px;color:#ff7078;font:10px var(--mono);letter-spacing:.12em}
+    .terminal-lines{font:13px/2 var(--mono);color:#ff6871;min-height:130px;white-space:pre-wrap}
+    .terminal-lines .dim{color:#9b5258}
+    .blink{animation:blink 1s steps(2,start) infinite}
+    @keyframes blink{to{visibility:hidden}}
+    .glitch{animation:glitch .25s steps(2,end) 5}
+    @keyframes glitch{0%{transform:translate(0);filter:none}25%{transform:translate(2px,-1px);filter:hue-rotate(25deg)}50%{transform:translate(-2px,1px);filter:contrast(1.5)}100%{transform:translate(0);filter:none}}
+    .signal-map{position:relative;overflow:hidden;border:1px solid #35262a;border-radius:10px;background:radial-gradient(ellipse at center,#1b2027,#090b0f 72%);min-height:260px;padding:18px}
+    .map-grid{position:absolute;inset:0;opacity:.35;background-image:linear-gradient(#30394544 1px,transparent 1px),linear-gradient(90deg,#30394544 1px,transparent 1px);background-size:34px 34px}
+    .map-title{position:relative;z-index:1;color:#b8c0ca;font:10px var(--mono);letter-spacing:.13em}
+    .world{position:relative;z-index:1;width:100%;height:215px;display:block}
+    .node{fill:#ff4650;filter:drop-shadow(0 0 5px #ff3038);animation:pulse 1.8s infinite}
+    .node:nth-child(2n){animation-delay:.5s}
+    .node.secret{fill:#fff;cursor:pointer;filter:drop-shadow(0 0 8px #fff)}
+    @keyframes pulse{50%{opacity:.25;r:2}}
+    .map-hint{position:relative;z-index:1;text-align:center;color:var(--muted);font:11px var(--mono);margin:0}
+    .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .doc{border:1px solid var(--line);background:#111419;border-radius:8px;padding:15px;min-height:145px;display:flex;flex-direction:column;gap:9px}
+    .doc.locked{opacity:.65}
+    .doc-title{font:12px var(--mono);color:#f1d6d8}
+    .doc p{font-size:12px;line-height:1.5;margin:0;flex:1}
+    .doc button{align-self:flex-start}
+    .modal{position:fixed;inset:0;background:#000c;display:grid;place-items:center;padding:18px;z-index:20}
+    .modal-card{width:min(650px,100%);max-height:85vh;overflow:auto;border:1px solid #6c3038;background:#101216;border-radius:12px;padding:22px;box-shadow:0 20px 80px #000}
+    .modal-card pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.7 var(--mono);color:#d7dce4}
+    .close{float:right;border:1px solid var(--line);background:#171a20;color:#fff;border-radius:5px;padding:5px 10px}
+    .puzzle{display:grid;gap:10px;max-width:520px}
+    .puzzle input{background:#080a0d;border:1px solid #454c57;border-radius:6px;padding:12px;color:white;outline:none}
+    .puzzle input:focus{border-color:var(--red)}
+    .feedback{min-height:22px;color:var(--green);font:12px var(--mono)}
+    .archive-note{font-size:12px;color:var(--muted)}
+    .article{max-width:850px;margin:48px auto 0}
+    .quote{border-left:3px solid var(--red);padding-left:20px}
+    .quote p{margin-bottom:17px}
+    .quote strong,.emphasis{color:#fff;font-weight:750}
+    footer{margin:48px auto 0;padding:20px 10px 0;border-top:1px solid #382326;color:#858b95;text-align:center;font-size:12px;line-height:1.7}
+    .final-banner{text-align:center;border:1px solid #653039;background:linear-gradient(135deg,#210f13,#101216);border-radius:12px;padding:30px 18px;margin:28px 0}
+    .final-banner h2{color:var(--red);font:800 clamp(24px,5vw,42px) var(--mono)}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1b2027;border:1px solid #4c5663;color:#fff;border-radius:6px;padding:10px 14px;font-size:12px;z-index:30;max-width:90vw;text-align:center}
+    @media(max-width:720px){.docs-grid{grid-template-columns:1fr}.shell{padding:16px 14px 40px}.topbar{align-items:flex-start}.panel{padding:17px}.signal-map{min-height:220px}.world{height:175px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
-  <main>
-    <div class="eyebrow">Объявление · СейберСеть</div>
-    <h1>До начала Операции «Кластерная Буря» осталось:</h1>
-    <section class="timer-frame" aria-label="Обратный отсчёт">
-      <div class="timer" id="timer">48:31:59</div>
-      <div class="units"><span>Часы</span><span>Минуты</span><span>Секунды</span></div>
-    </section>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">S</div><div>SABER'S INC.<br><span class="muted" style="font-weight:500;font-size:10px">SABER NETWORK DIVISION</span></div></div>
+      <div class="top-meta">INTERNAL PUBLIC PORTAL<br>REF: SN-KB-2026-11</div>
+    </header>
 
-    <article>
-      <h2>Что такое СейберСеть?</h2>
-      <p><strong>Дословный пересказ выступления от 1 января **** года. Уважаемого Леонардо Сейбера.</strong></p>
-      <div class="quote">
-        <p>«Уважаемые дамы и господа!</p>
-        <p>На протяжении десятилетий человечество стремилось сделать свою жизнь проще. Мы создавали машины, автоматизировали производство, внедряли компьютеры и разрабатывали технологии, которые ещё недавно казались научной фантастикой.</p>
-        <p>Но сегодня я хочу представить вам нечто совершенно новое»</p>
+    <main>
+      <section class="hero" id="hero">
+        <div class="eyebrow">Объявление · СейберСеть</div>
+        <h1>До начала Операции «Кластерная Буря» осталось:</h1>
+        <p class="muted">Официальный информационный портал корпорации Saber’s Inc. Все события и системные сообщения на этой странице являются частью вымышленной интерактивной истории.</p>
+        <div class="timer-card" id="timerCard">
+          <div class="timer" id="timer" aria-live="off">--:--:--</div>
+          <div class="units"><span>Часы</span><span>Минуты</span><span>Секунды</span></div>
+          <div class="status-line" id="timerStatus">ОЖИДАНИЕ НАЗНАЧЕННОГО ВРЕМЕНИ · UTC+04:00</div>
+        </div>
+      </section>
 
-        <h3>СейберСеть!</h3>
-        <p><strong>Что это такое?</strong></p>
-        <p>СейберСеть — это глобальная интеллектуальная система, способная объединить бытовую технику, электронные устройства и различные элементы современной инфраструктуры в единую цифровую экосистему.</p>
-        <p>Представьте себе мир, в котором каждый холодильник, каждая стиральная машина, каждый телевизор и даже обычная микроволновая печь способны взаимодействовать друг с другом.</p>
-        <p>Именно для этого мы разработали специальные интеллектуальные чипы.</p>
-        <p>Каждый такой чип представляет собой небольшой вычислительный модуль, оснащённый программным обеспечением и средствами связи. Он позволяет устройству собирать информацию о собственной работе, обмениваться данными и выполнять команды.</p>
-        <p>Но зачем всё это нужно?</p>
-        <p>Представьте холодильник, который самостоятельно контролирует температуру, следит за сроком хранения продуктов и сообщает владельцу, когда запасы заканчиваются.</p>
-        <p>Представьте стиральную машину, которая самостоятельно определяет оптимальный режим стирки.</p>
-        <p>Представьте систему отопления, которая регулирует температуру в доме в зависимости от условий окружающей среды.</p>
-        <p>Всё это становится возможным благодаря СейберСети!</p>
-        <p>Однако самое главное заключается вовсе не в отдельных устройствах.</p>
-        <p class="emphasis">Самое главное — это их взаимодействие.</p>
-        <p>Благодаря единой сети устройства могут обмениваться информацией, координировать свою работу и выполнять сложные задачи без постоянного вмешательства человека.</p>
-        <p>Больше никакого управления десятками отдельных приборов. Больше никаких разрозненных систем.</p>
-        <p class="emphasis">Одна сеть. Единая платформа. Миллионы подключённых устройств.</p>
-        <p>И это только начало.</p>
-        <p>Наша технология открывает совершенно новые перспективы для промышленности, медицины, транспорта, энергетики и повседневной жизни.</p>
-        <p>Мы создаём будущее, в котором технологии не просто выполняют наши команды, а помогают предугадывать потребности человека.</p>
-        <p>Разумеется, подобная система требует серьёзного подхода к безопасности. Поэтому СейберСеть предусматривает защиту данных, разграничение доступа и возможность отключения отдельных устройств от общей системы.</p>
-        <p>Ведь настоящая технологическая революция должна не только расширять возможности человечества, но и делать его жизнь безопаснее.</p>
-        <p>Дамы и господа!</p>
-        <p>Сегодня мы стоим на пороге новой эпохи.</p>
-        <p>Эпохи, в которой миллионы устройств смогут работать как единый механизм.</p>
-        <p class="emphasis">Это не просто очередное изобретение. Это новый способ взаимодействия человека и технологий.</p>
-        <p class="emphasis">Это СейберСеть.</p>
-        <p class="emphasis">И будущее начинается сегодня!»</p>
+      <section id="launchSequence" class="hidden" aria-live="polite">
+        <div class="terminal-top"><span>SABER'S INC. // SYSTEM TERMINAL</span><span id="terminalState">BOOT SEQUENCE</span></div>
+        <div class="terminal-lines" id="terminalLines"></div>
+        <div class="button-row hidden" id="signalActions">
+          <button class="button" id="firstMessageBtn">ПОЛУЧИТЬ ПЕРВОЕ СООБЩЕНИЕ</button>
+        </div>
+      </section>
+
+      <section id="eventArea" class="hidden">
+        <div class="panel">
+          <div class="panel-head"><div><div class="eyebrow">Событие зарегистрировано</div><h2 style="margin:7px 0 0">Неизвестный сигнал</h2></div><span class="tag">SIGNAL DETECTED</span></div>
+          <p>Синхронизация завершена не по плану. Система зарегистрировала неизвестный сигнал. Источник не идентифицирован. Оператору рекомендуется сохранять спокойствие и не нажимать все кнопки одновременно.</p>
+          <div class="signal-map">
+            <div class="map-grid"></div><div class="map-title">GLOBAL NODE MONITOR · СИМВОЛИЧЕСКАЯ ВИЗУАЛИЗАЦИЯ</div>
+            <svg class="world" viewBox="0 0 800 260" role="img" aria-label="Схематичная карта сети с узлами">
+              <g fill="none" stroke="#38434e" stroke-width="1.2" opacity=".7">
+                <path d="M55 83 L105 47 175 55 211 91 189 121 147 130 130 169 83 150 55 112Z"/>
+                <path d="M205 164 L245 174 266 207 251 245 224 222 214 190Z"/>
+                <path d="M330 68 L380 48 433 60 466 87 445 115 401 118 375 101 342 112Z"/>
+                <path d="M378 130 L425 123 462 154 450 211 417 236 392 198 369 163Z"/>
+                <path d="M490 72 L545 50 616 62 673 94 650 125 591 129 560 111 518 120Z"/>
+                <path d="M610 164 L661 154 704 183 687 220 641 215Z"/>
+                <path d="M300 28 L330 18 349 30 337 46Z"/>
+              </g>
+              <g stroke="#a42d37" stroke-width="1" opacity=".5">
+                <path d="M90 105L160 82L225 181L395 90L445 174L590 90L670 190"/>
+                <path d="M160 82L395 90L590 90M225 181L445 174L670 190"/>
+              </g>
+              <g id="nodes"></g>
+              <circle class="node secret" id="secretNode" cx="590" cy="90" r="6" tabindex="0" role="button" aria-label="Неизвестный узел — нажмите для проверки"/>
+            </svg>
+            <p class="map-hint">НАЖМИТЕ НА СВЕТЛУЮ ТОЧКУ, ЧТОБЫ ПРОВЕРИТЬ НЕИЗВЕСТНЫЙ УЗЕЛ</p>
+          </div>
+        </div>
+
+        <section class="panel" id="archive">
+          <div class="panel-head"><div><div class="eyebrow">Центральный архив</div><h2 style="margin:7px 0 0">Документы операции</h2></div><span class="tag amber">3 ФРАГМЕНТА</span></div>
+          <p class="archive-note">Документы открываются по мере прохождения загадок. Все коды — игровые; вводить личные данные или устанавливать что-либо не требуется.</p>
+          <div class="docs-grid">
+            <article class="doc locked" id="doc1"><div class="doc-title">DOCUMENT_001</div><strong>Последняя запись</strong><p>Запись, оставленная перед завершением синхронизации.</p><button class="button secondary" id="openDoc1" disabled>ЗАБЛОКИРОВАН</button></article>
+            <article class="doc locked" id="doc2"><div class="doc-title">DOCUMENT_002</div><strong>Протокол синхронизации</strong><p>Фрагмент системного журнала с буквенным шифром.</p><button class="button secondary" id="openDoc2" disabled>ЗАБЛОКИРОВАН</button></article>
+            <article class="doc locked" id="doc3"><div class="doc-title">DOCUMENT_003</div><strong>Неизвестный узел</strong><p>Сообщение, найденное в точке, которой не должно быть.</p><button class="button secondary" id="openDoc3" disabled>ЗАБЛОКИРОВАН</button></article>
+          </div>
+        </section>
+
+        <section class="panel" id="puzzles">
+          <div class="panel-head"><div><div class="eyebrow">Проверка доступа</div><h2 style="margin:7px 0 0">Интерактивные загадки</h2></div><span class="tag green" id="progressTag">0 / 3 РЕШЕНО</span></div>
+          <div class="puzzle">
+            <label for="answer1"><strong>Загадка 01 · Скрытое слово</strong><br><span class="muted">В первой записи спрятано ключевое слово процесса, который завершился после таймера. Введите его по-английски.</span></label>
+            <input id="answer1" autocomplete="off" placeholder="Ваш ответ">
+            <button class="button" id="check1">ПРОВЕРИТЬ ОТВЕТ</button><div class="feedback" id="feedback1"></div>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+          <div class="puzzle">
+            <label for="answer2"><strong>Загадка 02 · Системный журнал</strong><br><span class="muted">Расшифруйте последовательность: 19 - 5 - 18 - 22 - 5 - 18. Используйте английский алфавит, где A = 1.</span></label>
+            <input id="answer2" autocomplete="off" placeholder="Ваш ответ">
+            <button class="button" id="check2">ПРОВЕРИТЬ ОТВЕТ</button><div class="feedback" id="feedback2"></div>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+          <div class="puzzle">
+            <label><strong>Загадка 03 · Неизвестный узел</strong><br><span class="muted">Найдите на карте единственную светлую точку и нажмите на неё. Затем введите код, который появится в сообщении узла.</span></label>
+            <input id="answer3" autocomplete="off" placeholder="Код неизвестного узла" disabled>
+            <button class="button" id="check3" disabled>ПРОВЕРИТЬ ОТВЕТ</button><div class="feedback" id="feedback3"></div>
+          </div>
+        </section>
+
+        <section class="final-banner hidden" id="finalReveal">
+          <div class="eyebrow">Все фрагменты восстановлены</div>
+          <h2>МЫ ЖДАЛИ ВАС.</h2>
+          <p>Кластерная Буря никогда не была обычным запуском системы. Это была проверка: сможет ли кто-нибудь заметить сообщения, оставленные в архиве.</p>
+          <p class="muted">Поздравляем. Вы официально назначены внештатным специалистом по поиску потерянных кнопок.</p>
+          <span class="tag green">END OF TRANSMISSION</span>
+        </section>
+
+        <section class="panel hidden" id="newPhase">
+          <div class="panel-head"><div><div class="eyebrow">Saber Network</div><h2 style="margin:7px 0 0">Следующий этап</h2></div><span class="tag green">ONLINE</span></div>
+          <div class="docs-grid">
+            <div class="doc"><div class="doc-title">01 / СЕЙБЕРСЕТЬ</div><strong>О системе</strong><p>Концепция и возможности вымышленной интеллектуальной сети.</p></div>
+            <div class="doc"><div class="doc-title">02 / АРХИВ</div><strong>Документы</strong><p>Материалы операции «Кластерная Буря» и найденные записи.</p></div>
+            <div class="doc"><div class="doc-title">03 / ХРОНОЛОГИЯ</div><strong>История событий</strong><p>Последовательность событий вселенной Saber’s Inc.</p></div>
+          </div>
+        </section>
+      </section>
+
+      <div class="button-row" id="previewControls" style="margin:24px 0">
+        <button class="button secondary" id="previewBtn">ПРЕДПРОСМОТР ФИНАЛА</button>
+        <span class="muted" style="font-size:11px;align-self:center">Для проверки сценария до наступления даты</span>
       </div>
-    </article>
 
-    <footer>
-      Сайт является развлекательным, не несёт никакого смысла, не является коммерческим проектом и создан в шутку и ради юмора. Обратный отсчёт ни к чему не ведёт.
-    </footer>
-  </main>
+      <article class="article panel" id="about">
+        <div class="eyebrow">Корпоративная справка</div>
+        <h2>Что такое СейберСеть?</h2>
+        <p><strong>Дословный пересказ выступления от 1 января **** года. Уважаемого Леонардо Сейбера.</strong></p>
+        <div class="quote">
+          <p>«Уважаемые дамы и господа!</p>
+          <p>На протяжении десятилетий человечество стремилось сделать свою жизнь проще. Мы создавали машины, автоматизировали производство, внедряли компьютеры и разрабатывали технологии, которые ещё недавно казались научной фантастикой.</p>
+          <p>Но сегодня я хочу представить вам нечто совершенно новое»</p>
+          <h3>СейберСеть!</h3>
+          <p><strong>Что это такое?</strong></p>
+          <p>СейберСеть — это глобальная интеллектуальная система, способная объединить бытовую технику, электронные устройства и различные элементы современной инфраструктуры в единую цифровую экосистему.</p>
+          <p>Представьте себе мир, в котором каждый холодильник, каждая стиральная машина, каждый телевизор и даже обычная микроволновая печь способны взаимодействовать друг с другом.</p>
+          <p>Именно для этого мы разработали специальные интеллектуальные чипы.</p>
+          <p>Каждый такой чип представляет собой небольшой вычислительный модуль, оснащённый программным обеспечением и средствами связи. Он позволяет устройству собирать информацию о собственной работе, обмениваться данными и выполнять команды.</p>
+          <p>Но зачем всё это нужно?</p>
+          <p>Представьте холодильник, который самостоятельно контролирует температуру, следит за сроком хранения продуктов и сообщает владельцу, когда запасы заканчиваются.</p>
+          <p>Представьте стиральную машину, которая самостоятельно определяет оптимальный режим стирки.</p>
+          <p>Представьте систему отопления, которая регулирует температуру в доме в зависимости от условий окружающей среды.</p>
+          <p>Всё это становится возможным благодаря СейберСети!</p>
+          <p>Однако самое главное заключается вовсе не в отдельных устройствах.</p>
+          <p class="emphasis">Самое главное — это их взаимодействие.</p>
+          <p>Благодаря единой сети устройства могут обмениваться информацией, координировать свою работу и выполнять сложные задачи без постоянного вмешательства человека.</p>
+          <p>Больше никакого управления десятками отдельных приборов. Больше никаких разрозненных систем.</p>
+          <p class="emphasis">Одна сеть. Единая платформа. Миллионы подключённых устройств.</p>
+          <p>И это только начало.</p>
+          <p>Наша технология открывает совершенно новые перспективы для промышленности, медицины, транспорта, энергетики и повседневной жизни.</p>
+          <p>Мы создаём будущее, в котором технологии не просто выполняют наши команды, а помогают предугадывать потребности человека.</p>
+          <p>Разумеется, подобная система требует серьёзного подхода к безопасности. Поэтому СейберСеть предусматривает защиту данных, разграничение доступа и возможность отключения отдельных устройств от общей системы.</p>
+          <p>Ведь настоящая технологическая революция должна не только расширять возможности человечества, но и делать его жизнь безопаснее.</p>
+          <p>Дамы и господа!</p>
+          <p>Сегодня мы стоим на пороге новой эпохи.</p>
+          <p>Эпохи, в которой миллионы устройств смогут работать как единый механизм.</p>
+          <p class="emphasis">Это не просто очередное изобретение. Это новый способ взаимодействия человека и технологий.</p>
+          <p class="emphasis">Это СейберСеть.</p>
+          <p class="emphasis">И будущее начинается сегодня!»</p>
+        </div>
+      </article>
+    </main>
+    <footer>Сайт является развлекательным, не несёт никакого смысла, не является коммерческим проектом и создан в шутку и ради юмора. Обратный отсчёт ни к чему не ведёт.<br><br>SABER'S INC. © 2026 · FICTIONAL INTERACTIVE EXPERIENCE</footer>
+  </div>
+
+  <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card"><button class="close" id="closeModal">ЗАКРЫТЬ ✕</button><div class="eyebrow">Saber's Inc. // Archive</div><h2 id="modalTitle">Документ</h2><pre id="modalText"></pre></div>
+  </div>
+  <div class="toast hidden" id="toast"></div>
+
   <script>
-    // Единая фиксированная дата окончания: отсчёт не начинается заново при открытии страницы.
-    // Для всех посетителей используется один и тот же момент времени.
+    // Одна фиксированная дата для всех посетителей: 26 ноября 2026, 07:14:59 UTC+04:00.
     const deadline = new Date("2026-11-26T07:14:59+04:00").getTime();
-    const timer = document.getElementById("timer");
-    const pad = n => String(n).padStart(2, "0");
+    const $ = id => document.getElementById(id);
+    const timer = $("timer");
+    let launched = false;
+    let solved = [false, false, false];
+    let nodeFound = false;
 
+    const pad = n => String(n).padStart(2, "0");
     function updateTimer() {
       const remaining = Math.max(0, deadline - Date.now());
-      const totalSeconds = Math.floor(remaining / 1000);
-      const hours = Math.floor(totalSeconds / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
+      const total = Math.floor(remaining / 1000);
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
       timer.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-      if (remaining <= 0) {
-        timer.textContent = "00:00:00";
-        clearInterval(interval);
-      }
+      if (remaining <= 0 && !launched) startFinal();
     }
     updateTimer();
-    const interval = setInterval(updateTimer, 250);
+    const clock = setInterval(updateTimer, 250);
+
+    function terminalLines(lines, done) {
+      const target = $("terminalLines");
+      target.textContent = "";
+      let line = 0;
+      function next() {
+        if (line >= lines.length) { if (done) done(); return; }
+        target.textContent += (line ? "\n" : "") + "> " + lines[line];
+        line++;
+        setTimeout(next, 850);
+      }
+      next();
+    }
+
+    function startFinal() {
+      if (launched) return;
+      launched = true;
+      clearInterval(clock);
+      $("timerCard").classList.add("hidden");
+      $("hero").querySelector("h1").textContent = "Операция «Кластерная Буря»";
+      $("hero").querySelector(".muted").textContent = "Регламентный отсчёт завершён. Выполняется переход к следующей фазе.";
+      $("launchSequence").classList.remove("hidden");
+      $("launchSequence").classList.add("glitch");
+      $("terminalState").textContent = "SYNCHRONIZATION";
+      terminalLines([
+        "TIMER COMPLETED",
+        "SYNCHRONIZATION STARTED",
+        "CONNECTING GLOBAL NODES...",
+        "WAITING FOR RESPONSE...",
+        "UNEXPECTED RESPONSE DETECTED",
+        "SOURCE: UNKNOWN",
+        "OPERATOR STATUS: PLEASE REMAIN CALM"
+      ], () => {
+        $("terminalState").textContent = "SIGNAL DETECTED";
+        $("signalActions").classList.remove("hidden");
+        $("eventArea").classList.remove("hidden");
+        $("previewControls").classList.add("hidden");
+        renderNodes();
+      });
+    }
+
+    function renderNodes() {
+      const group = $("nodes");
+      const points = [[91,105],[132,75],[165,93],[210,181],[239,195],[352,85],[390,91],[422,165],[451,178],[520,91],[555,82],[630,99],[650,188],[678,193],[590,90],[190,110],[470,115],[310,60],[570,175]];
+      points.forEach(([x,y],i) => {
+        const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",x); c.setAttribute("cy",y); c.setAttribute("r",i%4===0?4:2.8); c.setAttribute("class","node"); group.appendChild(c);
+      });
+    }
+
+    $("firstMessageBtn").addEventListener("click", () => {
+      openDocument("DOCUMENT_001 — ПОСЛЕДНЯЯ ЗАПИСЬ",
+`SABER'S INC. / INTERNAL MEMO
+ДОСТУП: ОТКРЫТ ПОСЛЕ ЗАВЕРШЕНИЯ ОТСЧЁТА
+
+Если вы читаете этот документ, значит, синхронизация завершилась.
+
+Мы долго готовились к этому моменту. Но есть одна вещь, о которой не было сказано в официальном объявлении.
+
+Кластерная Буря никогда не была обычным запуском системы. Это была проверка.
+
+Проверка того, сможет ли кто-нибудь заметить три фрагмента, оставленные в открытом архиве.
+
+ПРИМЕЧАНИЕ: просьба не путать «неизвестный сигнал» с микроволновкой в комнате отдыха.`);
+      unlockDoc(0);
+      $("puzzles").scrollIntoView({behavior:"smooth",block:"start"});
+    });
+
+    $("secretNode").addEventListener("click", revealNode);
+    $("secretNode").addEventListener("keydown", e => { if(e.key==="Enter"||e.key===" "){e.preventDefault();revealNode();} });
+    function revealNode() {
+      if (nodeFound) { showToast("Узел уже проверен. Он всё ещё подозрительно светится."); return; }
+      nodeFound = true;
+      openDocument("UNKNOWN_NODE // SIGNAL 003",
+`НЕИЗВЕСТНЫЙ УЗЕЛ ОБНАРУЖЕН
+
+Сообщение:
+«Если вы нашли эту точку, значит, карта работает. Передайте оператору код: CLUSTER.»
+
+КОД ДОСТУПА: CLUSTER
+
+Источник: неизвестен.
+Примечание системного администратора: точка была здесь всё это время.`);
+      $("answer3").disabled = false;
+      $("check3").disabled = false;
+      $("answer3").focus();
+      showToast("Неизвестный узел ответил. Код доступа получен.");
+    }
+
+    const docs = [
+      `DOCUMENT_001 — ПОСЛЕДНЯЯ ЗАПИСЬ
+
+Если вы читаете этот документ, значит, синхронизация завершилась.
+
+Кластерная Буря никогда не была обычным запуском системы. Это была проверка того, сможет ли кто-нибудь заметить три фрагмента, оставленные в открытом архиве.
+
+ПРИМЕЧАНИЕ: просьба не путать «неизвестный сигнал» с микроволновкой в комнате отдыха.`,
+      `DOCUMENT_002 — ПРОТОКОЛ СИНХРОНИЗАЦИИ
+
+Фрагмент системного журнала:
+19 - 5 - 18 - 22 - 5 - 18
+
+Метод расшифровки: английский алфавит, A = 1.
+
+Служебная пометка: если получилось слово SERVER, значит, вы справились. Если получилось «сыр», проверьте раскладку клавиатуры.`,
+      `DOCUMENT_003 — НЕИЗВЕСТНЫЙ УЗЕЛ
+
+Сообщение:
+«Если вы нашли эту точку, значит, карта работает. Передайте оператору код: CLUSTER.»
+
+Источник: неизвестен.
+Статус: дружелюбный.
+Уровень угрозы: отсутствует.
+Примечание: узел попросил не забыть выключить свет в переговорной.`
+    ];
+
+    function openDocument(title, text) {
+      $("modalTitle").textContent = title;
+      $("modalText").textContent = text;
+      $("modal").classList.remove("hidden");
+      $("closeModal").focus();
+    }
+    $("closeModal").addEventListener("click", () => $("modal").classList.add("hidden"));
+    $("modal").addEventListener("click", e => { if(e.target === $("modal")) $("modal").classList.add("hidden"); });
+    document.addEventListener("keydown", e => { if(e.key==="Escape") $("modal").classList.add("hidden"); });
+
+    function unlockDoc(index) {
+      const n=index+1, card=$("doc"+n), btn=$("openDoc"+n);
+      card.classList.remove("locked"); btn.disabled=false; btn.textContent="ОТКРЫТЬ ДОКУМЕНТ";
+      btn.classList.remove("secondary");
+      btn.onclick=()=>openDocument(["DOCUMENT_001 — ПОСЛЕДНЯЯ ЗАПИСЬ","DOCUMENT_002 — ПРОТОКОЛ СИНХРОНИЗАЦИИ","DOCUMENT_003 — НЕИЗВЕСТНЫЙ УЗЕЛ"][index],docs[index]);
+    }
+    function checkAnswer(index, expected) {
+      const value=$("answer"+(index+1)).value.trim().toUpperCase();
+      if(value===expected) {
+        if(!solved[index]) { solved[index]=true; unlockDoc(index); }
+        $("feedback"+(index+1)).textContent="ДОСТУП ПОДТВЕРЖДЁН. ФРАГМЕНТ ВОССТАНОВЛЕН.";
+        $("progressTag").textContent=solved.filter(Boolean).length+" / 3 РЕШЕНО";
+        if(solved.every(Boolean)) {
+          $("finalReveal").classList.remove("hidden");
+          $("newPhase").classList.remove("hidden");
+          $("finalReveal").scrollIntoView({behavior:"smooth",block:"center"});
+        }
+      } else {
+        $("feedback"+(index+1)).style.color="var(--amber)";
+        $("feedback"+(index+1)).textContent="ОТКАЗАНО. Проверьте подсказку и попробуйте ещё раз.";
+      }
+    }
+    $("check1").addEventListener("click",()=>checkAnswer(0,"SYNCHRONIZATION"));
+    $("check2").addEventListener("click",()=>checkAnswer(1,"SERVER"));
+    $("check3").addEventListener("click",()=>checkAnswer(2,"CLUSTER"));
+    ["answer1","answer2","answer3"].forEach((id,i)=>$(id).addEventListener("keydown",e=>{if(e.key==="Enter")$("check"+(i+1)).click();}));
+
+    function showToast(message) {
+      $("toast").textContent=message; $("toast").classList.remove("hidden");
+      setTimeout(()=>$("toast").classList.add("hidden"),3200);
+    }
+    $("previewBtn").addEventListener("click",()=>{
+      if(!confirm("Запустить финал в режиме предпросмотра? Это не меняет дату таймера для других посетителей.")) return;
+      startFinal();
+    });
   </script>
 </body>
 </html>
